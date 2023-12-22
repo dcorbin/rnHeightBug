@@ -22,15 +22,16 @@ function LabeledValue(props: {label: string; value: string | number}) {
 
 function App(): React.JSX.Element {
   const window = useWindowDimensions();
+  const windowHeight = Math.round(window.height);
   const [height, setHeight] = useState<number | undefined>(undefined);
   return (
     <View
       onLayout={(e: LayoutChangeEvent) => {
-        setHeight(e.nativeEvent.layout.height);
+        setHeight(Math.round(e.nativeEvent.layout.height));
       }}
       style={[
         {flexDirection: 'column'},
-        {backgroundColor: window.height === height ? '#cfc' : '#fcc'},
+        {backgroundColor: windowHeight === height ? '#cfc' : '#fcc'},
         {
           // position: 'absolute',
           left: 0,
@@ -41,7 +42,7 @@ function App(): React.JSX.Element {
       ]}>
       <LabeledValue
         label={'useWindowDimensions().height'}
-        value={window.height}
+        value={windowHeight}
       />
       <View style={{height: 200}} />
       <LabeledValue label="height" value={height ? height.toString() : 'N/A'} />
